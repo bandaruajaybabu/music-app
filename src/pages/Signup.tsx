@@ -9,6 +9,7 @@ import EmailRequest from "./emailReq";
 export const baseURL = "http://localhost:3000";
 
 export default function () {
+  const [loginStatus, setLoginStatus] = useState("");
   let [authMode, setAuthMode] = useState("signin");
   const [emailValidation, setEmailValidation] = useState(false);
   const [emailMatch, setEmailMatch] = useState(false);
@@ -39,7 +40,7 @@ export default function () {
     } else setNameValidation(false);
   }
 
-  const handleSignIn = (e: SyntheticEvent) => {
+  const handleSignIn = async (e: SyntheticEvent) => {
     e.preventDefault();
     // handleSubmit(e);
     let target = e.target as typeof e.target & { value: any }[];
@@ -47,28 +48,27 @@ export default function () {
     let password = target[1].value;
 
     if (email && password && !emailValidation && !passValidation) {
-      axios
-        .post(baseURL + "/login-user", {
-          email: email,
-          password: password,
-        })
-        .then((response) => {
-          let { status } = response.data;
-          if (status === "ok") {
-            navigate("/app");
-          }
-          // } else if (!filteredUser) {
-          //   setEmailValidation(true);
-          //   setEmailError("Email address not registered.");
-          // } else {
-          //   setPassValidation(true);
-          //   setPassError("Invalid Password");
-          // }
-        });
+      const allUsers = await fetch("http://localhost:5000/user").then(
+        (response) => response.json()
+      );
+      console.log("allUsers");
+      console.log(allUsers);
+      let isUserExists = allUsers.find((user) => user.email === email);
+      console.log(isUserExists);
+      if (
+        isUserExists &&
+        isUserExists.email === email &&
+        isUserExists.password === password
+      ) {
+        navigate("/app");
+      } else {
+        console.log("user doest exists");
+        setLoginStatus("user does not exist");
+      }
     }
   };
 
-  const handleSignUp = (e: SyntheticEvent) => {
+  const handleSignUp = async (e: SyntheticEvent) => {
     e.preventDefault();
     // handleSubmit(e);
     let target = e.target as typeof e.target & { value: any }[];
@@ -77,24 +77,17 @@ export default function () {
     let password = target[2].value;
 
     if (email && password && !emailValidation && !passValidation) {
-    
-            axios
-              .post(baseURL + "/register", {
-                // id: uuidV4(),
-                fname: name,
-                email: email,
-                password: password,
-              })
-              .then((response) => {
-                console.log(response.data);
-              });
-            navigate("/app");
-          // } else {
-          //   setEmailMatch(true);
-          //   setEmailValidation(true);
-          // }
-        };
+      const status = await fetch("http://localhost:5000/user", {
+        method: "POST",
+        body: JSON.stringify({ email, name, password }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      console.log(" new user signup status --- ", status);
 
+      navigate("/app");
+    }
   };
 
   if (authMode === "signin") {
@@ -121,6 +114,13 @@ export default function () {
                 </span>
               </div>
               <EmailRequest authMode={authMode} />
+              <p
+                style={{
+                  color: "red",
+                }}
+              >
+                {loginStatus}
+              </p>
               <div className="d-grid gap-2 my-3">
                 <Button
                   type="submit"
