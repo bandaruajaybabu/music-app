@@ -6,6 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -19,8 +20,8 @@ async function main() {
   //   mongoose.set("strictQuery", false);
   await mongoose
     .connect(
-      "mongodb+srv://Lucky2892000:Lucky123@cluster0.pkzwryk.mongodb.net/?retryWrites=true&w=majority"
-      //   "mongodb+srv://ajaybabu:Ajaybabu@1234@cluster0.vncctxu.mongodb.net/?retryWrites=true&w=majority"
+      `mongodb+srv://Lucky2892000:${process.env.PASSWORD}@cluster0.pkzwryk.mongodb.net/?retryWrites=true&w=majority`
+
     )
     .then((value) => {
       // console.log(value);
