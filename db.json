@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": "38eddae1-a78b-492c-abc1-ceca6e690967",
+      "name": "AjayBabu",
+      "email": "ajay@gmail.com",
+      "password": "Ajay@1234"
+    },
+    {
+      "id": "f3df84da-093e-4637-b69b-1fc270fd7af7",
+      "name": "Ajay Babu",
+      "email": "ajaybabu@g.com",
+      "password": "Ajay@1234"
+    },
+    {
+      "id": "605cbc35-9743-48c7-b874-41be1a3e5ed9",
+      "name": "ajayabc",
+      "email": "abc@gmail.com",
+      "password": "Ajay@1234"
+    },
+    {
+      "email": "ajay@gmail.com",
+      "password": "Ajay1234",
+      "id": "TcfaCpe"
+    },
+    {
+      "email": "ajay@gmail.com",
+      "password": "Ajay1234",
+      "id": "KrSBbbl"
+    },
+    {
+      "email": "ajay@gmail.com",
+      "password": "Ajay1234",
+      "id": "j2x6ApO"
+    },
+    {
+      "email": "ajay@gmail.com",
+      "password": "Ajay1234",
+      "id": "BCDcDYz"
+    },
+    {
+      "email": "ajay@gmail.com",
+      "password": "Ajay1234",
+      "id": "pAai9dJ"
+    },
+    {
+      "email": "ajay@gmail.com",
+      "password": "Ajay1234",
+      "id": "Enxzshm"
+    }
+  ]
+}
